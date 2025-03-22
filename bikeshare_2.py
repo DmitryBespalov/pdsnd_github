@@ -105,16 +105,16 @@ def time_stats(df):
 
     # display the most common month
     months = ['january', 'february', 'march', 'april', 'may', 'june']
-    common_month = months[df['month'].mode()[0] - 1]
-    print('Most Common Month:', common_month)
+    month = months[df['month'].mode()[0] - 1]
+    print('Most Common Month:', month)
 
     # display the most common day of week
-    common_day = df['day_of_week'].mode()[0]
-    print('Most Common Day of Week:', common_day)
+    day = df['day_of_week'].mode()[0]
+    print('Most Common Day of Week:', day)
 
     # display the most common start hour
-    common_hour = df['hour'].mode()[0]
-    print('Most Common Start Hour:', common_hour)
+    hour = df['hour'].mode()[0]
+    print('Most Common Start Hour:', hour)
 
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
@@ -184,8 +184,8 @@ def user_stats(df):
 
     # Display earliest, most recent, and most common year of birth
     if 'Birth Year' in df.columns:
-        earliest_birth_year = df['Birth Year'].min()
-        print('Earliest Birth Year:', earliest_birth_year)
+        birth_year = df['Birth Year'].min()
+        print('Earliest Birth Year:', birth_year)
 
         most_recent_birth_year = df['Birth Year'].max()
         print('Most Recent Birth Year:', most_recent_birth_year)
@@ -238,14 +238,17 @@ def display_raw_data(city):
 
 def main():
     while True:
+        # Ask for data filters
         city, month, day = get_filters()
         df = load_data(city, month, day)
 
+        # Print user stats
         time_stats(df)
         station_stats(df)
         trip_duration_stats(df)
         user_stats(df)
 
+        # Ask to print out the data
         display_raw_data(city)
 
         restart = input('\nWould you like to restart? Enter yes or no.\n')
